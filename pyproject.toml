@@ -1,18 +1,21 @@
 [project]
-name = "python_project_template"
-version = "0.1.0"
-description = ""
+name = "time_flow"
+version = "0.0.1"
+description = "Is system for time management. Study. Planing."
 authors = [
     {name = "Anton Golubchikov",email = "anton1programmist@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "uvicorn (>=0.40.0,<0.41.0)",
+    "fastapi (>=0.127.0,<0.128.0)",
+    "pydantic-settings (>=2.12.0,<3.0.0)"
 ]
 license = { file = "LICENSE" }
 
 [tool.poetry]
-packages = [{include = "python_project_template", from = "src"}]
+packages = [{include = "time_flow", from = "src"}]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
