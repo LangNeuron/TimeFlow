@@ -13,10 +13,7 @@ def main() -> None:
     parser.add_argument("--dev", action="store_true")
     parser.add_argument("--path", default="time_flow.app:app")
     args = parser.parse_args()
-    uvicorn.run(args.path,
-                host=args.host,
-                port=args.port,
-                reload=args.dev)
+    uvicorn.run(args.path, host=args.host, port=args.port, reload=args.dev)
 
 
 if __name__ == "__main__":

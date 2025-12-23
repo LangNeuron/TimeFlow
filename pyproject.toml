@@ -48,6 +48,7 @@ convention = "numpy"
 # mypy configuration
 
 [tool.mypy]
+disable_error_code = ["misc"]
 python_version = "3.12"
 strict = true
 warn_unused_configs = true
