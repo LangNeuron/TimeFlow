@@ -10,11 +10,14 @@ repos:
     -   id: ruff-format
 
 # Mypy
--   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.10.0
-    hooks:
-    -   id: mypy
-        additional_dependencies: []
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.10.0
+  hooks:
+    - id: mypy
+      entry: mypy --namespace-packages src
+      pass_filenames: false
+
+
 
 # pytest (important can be slow)
 -   repo: local

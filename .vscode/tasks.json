@@ -20,20 +20,6 @@
             "detail": "Runs all pre-commit hooks on all files in the repository."
         },
         {
-            "label": "Run serever (TimeFlow, no dev mode)",
-            "type": "shell",
-            "command": "./run.sh",
-            "group":"test",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": true,
-                "clear": false
-            }
-        },
-        {
             "label": "Run serever (TimeFlow, DEV mode)",
             "type": "shell",
             "command": "./run_dev.sh",
