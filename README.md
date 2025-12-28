@@ -1,15 +1,7 @@
-# How work
+# TimeFlow
 
-## pyproject.toml
+![TimeFlow logo](https://github.com/LangNeuron/TimeFlow/tree/main/assets/logo.png)
 
-1. edit name of project.
-2. add description of project
-3. change if need python version
-4. update dependence
-5. check ruff configuration
-6. check mypy configuration
-7. check pytest configuration
+## About
 
-## check folders naming
-
-Developer enjoy
+**Get your time!**
