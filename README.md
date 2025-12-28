@@ -1,6 +1,7 @@
 # TimeFlow
 
-![TimeFlow logo](https://github.com/LangNeuron/TimeFlow/tree/main/assets/logo.png)
+![TimeFlow logo](https://raw.githubusercontent.com/LangNeuron/TimeFlow/main/assets/logo.png
+)
 
 ## About
 
