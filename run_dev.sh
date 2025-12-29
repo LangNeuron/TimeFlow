@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 CONTAINER_NAME="timeflow-db"
 
 if [ "$(docker ps -a -q -f name=$CONTAINER_NAME)" ]; then
@@ -16,4 +15,10 @@ docker run -d \
   -p 5432:5432 \
   postgres:16
 
+until docker exec $CONTAINER_NAME pg_isready -U timeflow_user; do
+  echo "Waiting for Postgres..."
+  sleep 2
+done
+
+echo "Postgres is ready. Starting server..."
 poetry run python src/start_server.py --dev
