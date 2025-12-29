@@ -36,6 +36,27 @@ class LoggingSettings(BaseSettings):
         populate_by_name=True,
     )
 
+class MailSettings(BaseSettings):
+    """MailSettings gmail."""
+
+    SMTP_HOST: str = "smtp.gmail.com"
+    SMTP_PORT: int = 587
+    SMTP_USERNAME: str = ""
+    SMTP_PASSWORD: str = ""
+    DEFAULT_SENDER_EMAIL: str = ""
+    DEFAULT_SENDER_NAME: str = ""
+
+    USE_TLS: bool = True
+    CHARSET: str = "utf-8"
+
+    model_config = SettingsConfigDict(
+        extra="ignore",
+        env_nested_delimiter = "__",
+        populate_by_name=True,
+        env_prefix="GMAIL_",
+        case_sensitive=True,
+    )
+
 class DataBase(BaseModel):
     """Database settings."""
 
@@ -63,6 +84,7 @@ class Config(BaseSettings):
 
     LOGGING: LoggingSettings = LoggingSettings()
     DB: DataBase = DataBase()
+    GMAIL: MailSettings = MailSettings()
 
     model_config = SettingsConfigDict(
         extra="ignore",
