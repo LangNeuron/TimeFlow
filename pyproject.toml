@@ -38,6 +38,7 @@ line-length = 79
 target-version = "py312"
 
 [tool.ruff.lint]
+ignore = ["ANN101"]
 select = ["ALL"]
 
 [tool.ruff.lint.pycodestyle]

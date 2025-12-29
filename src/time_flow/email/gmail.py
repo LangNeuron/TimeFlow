@@ -1,6 +1,5 @@
 """Gmail sender."""
 
-
 import smtplib
 from email.message import EmailMessage
 
@@ -41,8 +40,11 @@ def send_email(
     message["Subject"] = subject
 
     if html:
-        message.add_alternative(html, subtype="html",
-                                charset=settings.GMAIL.CHARSET)
+        message.add_alternative(
+            html,
+            subtype="html",
+            charset=settings.GMAIL.CHARSET,
+        )
     elif body:
         message.set_content(body, charset=settings.GMAIL.CHARSET)
     else:
@@ -50,14 +52,20 @@ def send_email(
         log.warning(msg)
         raise ValueError(msg)
 
-    with smtplib.SMTP(settings.GMAIL.SMTP_HOST,
-                      settings.GMAIL.SMTP_PORT) as server:
+    with smtplib.SMTP(
+        settings.GMAIL.SMTP_HOST,
+        settings.GMAIL.SMTP_PORT,
+    ) as server:
         if settings.GMAIL.USE_TLS:
             server.starttls()
 
-        server.login(settings.GMAIL.SMTP_USERNAME,
-                     settings.GMAIL.SMTP_PASSWORD)
+        server.login(
+            settings.GMAIL.SMTP_USERNAME,
+            settings.GMAIL.SMTP_PASSWORD,
+        )
         server.send_message(message)
 
-    log.debug("Sent email to user, from %s",
-              settings.GMAIL.DEFAULT_SENDER_NAME)
+    log.debug(
+        "Sent email to user, from %s",
+        settings.GMAIL.DEFAULT_SENDER_NAME,
+    )

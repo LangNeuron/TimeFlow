@@ -30,11 +30,12 @@ class LoggingSettings(BaseSettings):
 
     model_config = SettingsConfigDict(
         extra="ignore",
-        env_nested_delimiter = "__",
+        env_nested_delimiter="__",
         env_prefix="LOGGING_",
         case_sensitive=True,
         populate_by_name=True,
     )
+
 
 class MailSettings(BaseSettings):
     """MailSettings gmail."""
@@ -51,11 +52,12 @@ class MailSettings(BaseSettings):
 
     model_config = SettingsConfigDict(
         extra="ignore",
-        env_nested_delimiter = "__",
+        env_nested_delimiter="__",
         populate_by_name=True,
         env_prefix="GMAIL_",
         case_sensitive=True,
     )
+
 
 class DataBase(BaseModel):
     """Database settings."""
@@ -70,11 +72,12 @@ class DataBase(BaseModel):
 
     model_config = SettingsConfigDict(
         extra="ignore",
-        env_nested_delimiter = "__",
+        env_nested_delimiter="__",
         populate_by_name=True,
         env_prefix="DB_",
         case_sensitive=True,
     )
+
 
 class Config(BaseSettings):
     """Config class for application settings."""
@@ -88,7 +91,7 @@ class Config(BaseSettings):
 
     model_config = SettingsConfigDict(
         extra="ignore",
-        env_nested_delimiter = "__",
+        env_nested_delimiter="__",
         case_sensitive=True,
         populate_by_name=True,
     )
@@ -96,6 +99,7 @@ class Config(BaseSettings):
     def __init__(self, **data: Any) -> None:  # noqa: ANN401
         """Init Config."""
         super().__init__(**data)
+
 
 def configure(
     json_file_settings: Path,

@@ -11,6 +11,7 @@ from time_flow.utils import get_settings
 
 settings = get_settings()
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[Any, Any]:
     """Lifespan."""
@@ -27,8 +28,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[Any, Any]:
     await app.state.db_pool.close()
 
 
-async def get_conn(request: Request,
-                   ) -> AsyncGenerator[asyncpg.Connection, None]:
+async def get_conn(
+    request: Request,
+) -> AsyncGenerator[asyncpg.Connection, None]:
     """Get connection."""
     async with request.app.state.db_pool.acquire() as conn:
         yield conn
