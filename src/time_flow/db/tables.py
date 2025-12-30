@@ -14,10 +14,12 @@ from .base import metadata
 tasks = Table(
     "tasks",
     metadata,
-    Column("uid",
-           UUID(as_uuid=True),
-           primary_key=True,
-           server_default=text("gen_random_uuid()")),
+    Column(
+        "uid",
+        UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("gen_random_uuid()"),
+    ),
     Column("title", String(255), nullable=False),
     Column(
         "created_at",
@@ -30,10 +32,12 @@ tasks = Table(
 user = Table(
     "user",
     metadata,
-    Column("uid",
-           UUID(as_uuid=True),
-           primary_key=True,
-           server_default=text("gen_random_uuid()")),
+    Column(
+        "uid",
+        UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("gen_random_uuid()"),
+    ),
     Column("name", String(255), nullable=False),
     Column(
         "created_at",

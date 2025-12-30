@@ -10,11 +10,13 @@ class Register(BaseModel):
     name: str
     password: str
 
+
 class Login(BaseModel):
     """Login model."""
 
     email: EmailStr
     password: str
+
 
 class UserDB(BaseModel):
     """User cred in database."""

@@ -16,18 +16,22 @@ class User:
     @staticmethod
     async def create(user_cred: Register, conn: AsyncConnection) -> UserDB:
         """Create user in database."""
-        query = user.insert().values(
-            name=user_cred.name,
-            email=user_cred.email,
-            hash_password=user_cred.password,
-            status="pending",  # pending пока не подтвердил почту
-            created_at=datetime.now(UTC),
-        ).returning(
-            user.c.uid,
-            user.c.name,
-            user.c.email,
-            user.c.hash_password,
-            user.c.status,
+        query = (
+            user.insert()
+            .values(
+                name=user_cred.name,
+                email=user_cred.email,
+                hash_password=user_cred.password,
+                status="pending",  # pending пока не подтвердил почту
+                created_at=datetime.now(UTC),
+            )
+            .returning(
+                user.c.uid,
+                user.c.name,
+                user.c.email,
+                user.c.hash_password,
+                user.c.status,
+            )
         )
         result = await conn.execute(query)
         row = result.first()
@@ -37,8 +41,10 @@ class User:
         return UserDB(**row._asdict())
 
     @staticmethod
-    async def _get_by_email(email: str, conn: AsyncConnection,
-                            ) -> UserDB | None:
+    async def _get_by_email(
+        email: str,
+        conn: AsyncConnection,
+    ) -> UserDB | None:
         """Get user by email."""
         query = select(user).where(user.c.email == email)
         result = await conn.execute(query)
@@ -54,9 +60,11 @@ class User:
         return UserDB(**row._asdict()) if row else None
 
     @staticmethod
-    async def update(uid: int, values: dict[str, str | int],
-                     conn: AsyncConnection,
-                     ) -> UserDB | None:
+    async def update(
+        uid: int,
+        values: dict[str, str | int],
+        conn: AsyncConnection,
+    ) -> UserDB | None:
         """Update user fields."""
         query = (
             update(user)

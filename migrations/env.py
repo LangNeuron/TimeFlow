@@ -2,7 +2,6 @@
 
 from alembic import context
 from sqlalchemy import create_engine, pool
-
 from time_flow.db.metadata import metadata
 from time_flow.utils import get_settings
 
