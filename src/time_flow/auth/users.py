@@ -7,22 +7,22 @@ from sqlalchemy.ext.asyncio import AsyncConnection
 
 from time_flow.db.tables import user
 
-from .models import Register, UserDB
+from .models import CreateUser, UserDB
 
 
 class User:
     """User CRUD service."""
 
     @staticmethod
-    async def create(user_cred: Register, conn: AsyncConnection) -> UserDB:
+    async def create(user_cred: CreateUser, conn: AsyncConnection) -> UserDB:
         """Create user in database."""
         query = (
             user.insert()
             .values(
                 name=user_cred.name,
                 email=user_cred.email,
-                hash_password=user_cred.password,
-                status="pending",  # pending пока не подтвердил почту
+                hash_password=user_cred.hash_password,
+                status=user_cred.status,
                 created_at=datetime.now(UTC),
             )
             .returning(

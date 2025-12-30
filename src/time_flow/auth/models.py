@@ -3,6 +3,15 @@
 from pydantic import BaseModel, EmailStr
 
 
+class CreateUser(BaseModel):
+    """Create user credentials."""
+
+    email: EmailStr
+    name: str
+    hash_password: str
+    status: str = "pending"
+
+
 class Register(BaseModel):
     """Register model."""
 
