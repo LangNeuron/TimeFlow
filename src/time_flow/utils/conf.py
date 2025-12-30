@@ -70,6 +70,24 @@ class DataBase(BaseModel):
     min_size: int = 1
     max_size: int = 10
 
+    @property
+    def url_async(self) -> str:
+        """Url async to database."""
+        return (
+            "postgresql+asyncpg://"
+            f"{self.user}:{self.password}"
+            f"@{self.host}:{self.port}/{self.name}"
+        )
+
+    @property
+    def url_sync(self) -> str:
+        """Url sync to database."""
+        return (
+            "postgresql+psycopg://"
+            f"{self.user}:{self.password}"
+            f"@{self.host}:{self.port}/{self.name}"
+        )
+
     model_config = SettingsConfigDict(
         extra="ignore",
         env_nested_delimiter="__",

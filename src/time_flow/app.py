@@ -2,10 +2,12 @@
 
 from typing import Annotated
 
-import asyncpg
 from fastapi import Depends, FastAPI
+from sqlalchemy import text
+from sqlalchemy.ext.asyncio import AsyncConnection
 
-from .db.database import get_conn, lifespan
+from .db.database import lifespan
+from .db.dependencies import get_conn
 from .utils import get_settings
 from .utils.log import get_logger
 
@@ -20,9 +22,11 @@ log.info("App started")
 
 @app.get("/")
 async def read_root(
-    conn: Annotated[asyncpg.Connection, Depends(get_conn)],
+    conn: Annotated[AsyncConnection, Depends(get_conn)],
 ) -> str:
-    """Read root."""
-    row = await conn.fetchrow("SELECT NOW() AS now;")
-    now_value = row["now"] if row else "no data"
+    """Test root."""
+    result = await conn.execute(text("SELECT NOW() AS now"))
+    row = result.fetchone()
+
+    now_value = row.now if row is not None else "no data"
     return f"Now is | {now_value}"

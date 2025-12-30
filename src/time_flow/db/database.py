@@ -1,36 +1,33 @@
-"""Create database."""
+"""Database services."""
 
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import Any
 
-import asyncpg
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    create_async_engine,
+)
 
 from time_flow.utils import get_settings
 
 settings = get_settings()
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncGenerator[Any, Any]:
-    """Lifespan."""
-    app.state.db_pool = await asyncpg.create_pool(
-        user=settings.DB.user,
-        password=settings.DB.password,
-        database=settings.DB.name,
-        host=settings.DB.host,
-        port=settings.DB.port,
-        min_size=settings.DB.min_size,
-        max_size=settings.DB.max_size,
+def create_engine() -> AsyncEngine:
+    """Create Engine."""
+    return create_async_engine(
+        settings.DB.url_async,
+        pool_size=settings.DB.min_size,
+        max_overflow=settings.DB.max_size - settings.DB.min_size,
+        pool_pre_ping=True,
     )
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+    """Lifespan fastapi."""
+    engine: AsyncEngine = create_engine()
+    app.state.db_engine = engine
     yield
-    await app.state.db_pool.close()
-
-
-async def get_conn(
-    request: Request,
-) -> AsyncGenerator[asyncpg.Connection, None]:
-    """Get connection."""
-    async with request.app.state.db_pool.acquire() as conn:
-        yield conn
+    await engine.dispose()
