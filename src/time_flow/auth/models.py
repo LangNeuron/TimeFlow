@@ -1,5 +1,8 @@
 """Models of the user."""
 
+from datetime import datetime
+from uuid import UUID
+
 from pydantic import BaseModel, EmailStr
 
 
@@ -30,8 +33,9 @@ class Login(BaseModel):
 class UserDB(BaseModel):
     """User cred in database."""
 
-    uid: int
+    uid: UUID
     email: EmailStr
     name: str
     hash_password: str
     status: str
+    created_at: datetime

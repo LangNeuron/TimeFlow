@@ -31,6 +31,7 @@ class User:
                 user.c.email,
                 user.c.hash_password,
                 user.c.status,
+                user.c.created_at,
             )
         )
         result = await conn.execute(query)

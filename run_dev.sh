@@ -20,5 +20,9 @@ until docker exec $CONTAINER_NAME pg_isready -U timeflow_user; do
   sleep 2
 done
 
+echo "Running database migrations..."
+poetry run alembic upgrade head
+
+
 echo "Postgres is ready. Starting server..."
 poetry run python src/start_server.py --dev

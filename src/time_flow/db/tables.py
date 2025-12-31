@@ -30,7 +30,7 @@ tasks = Table(
 )
 
 user = Table(
-    "user",
+    "users",
     metadata,
     Column(
         "uid",
@@ -39,6 +39,7 @@ user = Table(
         server_default=text("gen_random_uuid()"),
     ),
     Column("name", String(255), nullable=False),
+    Column("email", String(255), nullable=False),
     Column(
         "created_at",
         DateTime(timezone=True),

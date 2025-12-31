@@ -12,5 +12,5 @@ async def get_conn(
     """Get async connection to DB."""
     engine = request.app.state.db_engine
 
-    async with engine.connect() as conn:
+    async with engine.begin() as conn:
         yield conn

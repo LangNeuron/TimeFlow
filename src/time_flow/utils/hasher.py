@@ -38,6 +38,6 @@ class PasswordHasher:
         bool
             equivalence pw ans hash
         """
-        return bool(bcrypt.checkpw(password.encode("utf-8"),
-                                   hashed.encode("utf-8")))
-
+        return bool(
+            bcrypt.checkpw(password.encode("utf-8"), hashed.encode("utf-8")),
+        )
